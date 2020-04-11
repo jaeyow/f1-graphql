@@ -109,8 +109,8 @@ const ResultType = new GraphQLObjectType({
 });
 
 // Root Query
-const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
+const RootQueryType = new GraphQLObjectType({
+  name: 'RootQuery',
   fields: {
     races: {
       type: new GraphQLList(RaceType),
@@ -124,5 +124,5 @@ const RootQuery = new GraphQLObjectType({
 });
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQueryType
 });
