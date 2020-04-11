@@ -3,6 +3,7 @@ Ergast F1 data through GraphQL
 
 1. Run the mock F1 api (data from Ergast Developer API)
 - `npm run json:server` -> this will run the mock F1 API on port 3000
+- local mock api at http://localhost:3000/MRData
 
 2. Run the GraphQL server
 - `npm run dev:server` -> this will run your F1 GraphQL on port 5000
