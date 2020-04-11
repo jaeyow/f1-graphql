@@ -1,5 +1,7 @@
 # f1-graphql
-Getting to know GraphQL through using Ergast F1 data. This simply exposes GraphQL of the API data (http://ergast.com/api/f1/2019/results.json?limit=420). To make things simpler for learning, I have dumped the F1 data in a json file and used it as a mock API using [json-server](https://github.com/typicode/json-server).
+Getting to know GraphQL using Ergast F1 data. This simply exposes GraphQL of the API data (http://ergast.com/api/f1/2019/results.json?limit=420).
+
+To make things simpler for learning, I have dumped the F1 data in a json file and used it as a mock API using [json-server](https://github.com/typicode/json-server).
 
 1. `npm i` -> install dependencies
 
