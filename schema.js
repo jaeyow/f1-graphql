@@ -117,7 +117,10 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parent, args) {
         return axios
           .get('http://localhost:3000/MRData') // the json-server mock data
-          .then(res => res.data.RaceTable.Races);
+          .then(res => {
+            console.log(res.data.RaceTable.Races);
+            return res.data.RaceTable.Races;
+          });
       }
     }
   }
