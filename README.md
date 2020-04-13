@@ -14,10 +14,10 @@ To make things simpler for learning, I have dumped the F1 data in a json file an
 
 4. GraphiQL Explorer available at http://localhost:5000/graphql
 
-5. Run the F1 GraphQL Client -> this will run the F1 GraphQL client
+5. Run the F1 GraphQL Client
 - `cd f1-graphql-client`
 - `npm i`
-- `npm run start`
+- `npm run start` -> this will run the F1 GraphQL client
 - local F1 GraphQL client at http://localhost:3001
 
 6. **Profit!**
