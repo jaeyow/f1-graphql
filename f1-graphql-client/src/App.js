@@ -8,7 +8,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { Container, Link, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import { Container, Link, ExpansionPanel,
+  ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -102,7 +103,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -114,11 +115,9 @@ function App() {
         </Toolbar>
       </AppBar>
       <ApolloProvider client={client}>
-          <Container>
-            <RaceCards />
-          </Container>
-        </ApolloProvider>
-    </div>
+        <RaceCards />
+      </ApolloProvider>
+    </Container>
   );
 }
 
@@ -129,33 +128,36 @@ function RaceCards() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div className={classes.root}>
+  return (
+  <Container className={classes.root}>
   {
     data.races.map((race, race_i) => (
-        <ExpansionPanel className={classes.raceCell} key={race_i}>
+      <ExpansionPanel className={classes.raceCell} key={race_i}>
           <ExpansionPanelSummary className={classes.summaryCell}
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id={`panel${race_i}a-header`}>
+            aria-controls={`panel${race_i+1}a-content`}
+            id={`panel${race_i+1}a-header`}
+            >
             <Typography className={classes.heading}>{`Round ${race.round}: ${race.raceName}`}</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+        <ExpansionPanelDetails>
+          <Typography>
+            <Link href={`${race.Circuit.url}`} target="_blank">
+              {`${race.Circuit.circuitName}`}
+            </Link>
             <Typography>
-              <Link href={`${race.Circuit.url}`} target="_blank">
-                {`${race.Circuit.circuitName}`}
-              </Link>
-              <div>
-                {`${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`}
-              </div>
-              <div>
-                {`Date: ${race.date}`}
-              </div>
+              {`${race.Circuit.Location.locality}, ${race.Circuit.Location.country}`}
             </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+            <Typography>
+              {`Date: ${race.date}`}
+            </Typography>
+          </Typography>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
       ))
     }
-  </div>
+  </Container>
+  );
 }
 
 export default App;
