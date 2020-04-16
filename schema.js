@@ -108,6 +108,14 @@ const ResultType = new GraphQLObjectType({
   })
 });
 
+const SeasonType = new GraphQLObjectType({
+  name: 'Season',
+  fields: () => ({
+    season: { type: GraphQLString },
+    url:  { type: GraphQLString }
+  })
+});
+
 // Root Query
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
@@ -116,10 +124,30 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(RaceType),
       resolve(parent, args) {
         return axios
-          .get('http://localhost:3000/MRData') // the json-server mock data
+          // .get('http://localhost:3000/MRData') // the json-server mock data
+          .get('http://ergast.com/api/f1/2019/results.json?limit=420') // Ergast Data
           .then(res => {
-            console.log(res.data.RaceTable.Races);
-            return res.data.RaceTable.Races;
+            console.log(res.data.MRData.RaceTable.Races);
+            return res.data.MRData.RaceTable.Races;
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          });
+      }
+    },
+    seasons: {
+      type: new GraphQLList(SeasonType),
+      resolve(parent, args) {
+        return axios
+          .get('http://ergast.com/api/f1/seasons.json?limit=100')
+          .then(res => {
+            console.log(res.data.MRData.SeasonTable.Seasons);
+            return res.data.MRData.SeasonTable.Seasons;
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
           });
       }
     }

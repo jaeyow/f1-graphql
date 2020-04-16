@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ApolloClient from 'apollo-boost';
-import gql from 'graphql-tag';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Container, Link, ExpansionPanel,
   ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
@@ -15,73 +14,11 @@ import { useQuery } from '@apollo/react-hooks';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import { RACES_LIST, SEASONS_LIST } from './gql/index';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
 });
-
-const RACES_LIST = gql`
-  query {
-    races {
-      season
-      round
-      url
-      raceName
-      date
-      time
-      Circuit {
-        circuitId
-        url
-        circuitName
-        Location {
-          locality
-          country
-        }
-      }
-      Results {
-        number
-        position
-        positionText
-        points
-        grid
-        laps
-        status
-        Driver {
-          driverId
-          permanentNumber
-          code
-          url
-          givenName
-          familyName
-          dateOfBirth
-          nationality
-        }
-        Constructor {
-          constructorId
-          url
-          name
-          nationality
-        }
-        Time {
-          millis
-          time
-        }
-        FastestLap {
-          rank
-          lap
-          Time {
-            millis
-            time
-          }
-          AverageSpeed {
-            units
-            speed
-          }
-        }
-      }
-    }
-  }
-`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,13 +38,15 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0
   },
   option: {
-    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   formControl: {
     margin: theme.spacing(1),
     width: '90%',
   },
+  seasonFilter: {
+    height: '50px',
+  }
 }));
 
 function App() {
@@ -130,6 +69,7 @@ function App() {
 
   return (
     <Container className={classes.root}>
+      <ApolloProvider client={client}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -141,25 +81,12 @@ function App() {
         </Toolbar>
       </AppBar>
       
-      
-      <Grid container spacing={3}>
-        <Grid item xs={4} className={classes.option}>
-            <FormControl className={classes.formControl}>
-              <Select
-                value={state.filter1}
-                onChange={handleChange}
-                inputProps={{
-                  name: 'filter1'
-                }}>
-                <option value='2017' className={classes.option}>2017</option>
-                <option value='2018' className={classes.option}>2018</option>
-                <option value='2019' className={classes.option}>2019</option>
-              </Select>
-            </FormControl>
-        </Grid>
+      <Grid container spacing={3} className={classes.seasonFilter}>
+        <SeasonsFilter handleChange={handleChange} state={state}/>
         <Grid item xs={4} className={classes.option}>
           <FormControl className={classes.formControl}>
             <Select
+              height='25%'
               value={state.filter2}
               onChange={handleChange}
               inputProps={{
@@ -186,7 +113,7 @@ function App() {
           </FormControl>
         </Grid>
       </Grid>
-      <ApolloProvider client={client}>
+      
         <RaceCards />
       </ApolloProvider>
     </Container>
@@ -228,6 +155,34 @@ function RaceCards() {
       ))
     }
   </Container>
+  );
+}
+
+function SeasonsFilter(handleChange, state) {
+  const classes = useStyles();
+  const { loading, error, data } = useQuery(SEASONS_LIST);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return (
+    <Grid item xs={4} className={classes.option}>
+        <FormControl className={classes.formControl}>
+          <Select
+            height='25%'
+            value={state.filter1}
+            onChange={handleChange}
+            inputProps={{
+              name: 'filter1'
+            }}>
+              {
+                data.seasons.map((season) => (
+                    <option value={season.season} className={classes.option}>{season.season}</option>
+                ))
+              }
+          </Select>
+        </FormControl>
+    </Grid>
   );
 }
 
