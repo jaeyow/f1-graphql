@@ -69,7 +69,7 @@ function AppStateProvider(props) {
 
 function App() {
   const classes = useStyles();
-  
+
   return (
     <AppStateProvider>
       <Container className={classes.root}>
@@ -159,7 +159,7 @@ function SeasonsFilter() {
             value={ filters.season }
             onChange={ handleChange }>
               {
-                data.seasons.map((season) => (
+                data.seasons.reverse().map((season) => (
                     <option value={season.season} className={classes.option}>{season.season}</option>
                 ))
               }
