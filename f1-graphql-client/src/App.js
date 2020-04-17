@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -49,74 +49,50 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function App() {
-  const classes = useStyles();
+const AppState = React.createContext();
 
-  const [state, setState] = React.useState({
-    filter1: '',
-    filter2: '',
-    filter3: '',
-    name: 'hai',
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
+function AppStateProvider(props) {
+  const [filters, setFilters] = useState(
+    {
+      season: '',
+      category: '',
+      detail: ''
+    }
+  );
 
   return (
-    <Container className={classes.root}>
-      <ApolloProvider client={client}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Formula 1 GraphQL Picker
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      
-      <Grid container spacing={3} className={classes.seasonFilter}>
-        <SeasonsFilter handleChange={handleChange} state={state}/>
-        <Grid item xs={4} className={classes.option}>
-          <FormControl className={classes.formControl}>
-            <Select
-              height='25%'
-              value={state.filter2}
-              onChange={handleChange}
-              inputProps={{
-                name: 'filter2'
-              }}>
-              <option value='Races' className={classes.option}>Races</option>
-              <option value='Drivers' className={classes.option}>Drivers</option>
-              <option value='Teams' className={classes.option}>Teams</option>
-            </Select>
-          </FormControl>
+    <AppState.Provider value={{ filters, setFilters }}>
+      { props.children }
+    </AppState.Provider>
+  );
+}
+
+function App() {
+  const classes = useStyles();
+  
+  return (
+    <AppStateProvider>
+      <Container className={classes.root}>
+        <ApolloProvider client={client}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Formula 1 GraphQL Picker
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Grid container spacing={3} className={classes.seasonFilter}>
+          <SeasonsFilter/>
+          <CategoryFilter/>
+          <DetailFilter/>
         </Grid>
-        <Grid item xs={4} className={classes.option}>
-          <FormControl className={classes.formControl}>
-            <Select
-              value={state.filter3}
-              onChange={handleChange}
-              inputProps={{
-                name: 'filter3'
-              }}>
-              <option value='Option1' className={classes.option}>Option1</option>
-              <option value='Option2' className={classes.option}>Option2</option>
-              <option value='Option3' className={classes.option}>Option3</option>
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
-      
-        <RaceCards />
-      </ApolloProvider>
-    </Container>
+          <RaceCards />
+        </ApolloProvider>
+      </Container>
+    </AppStateProvider>
   );
 }
 
@@ -158,23 +134,30 @@ function RaceCards() {
   );
 }
 
-function SeasonsFilter(handleChange, state) {
+function SeasonsFilter() {
   const classes = useStyles();
   const { loading, error, data } = useQuery(SEASONS_LIST);
+  const { filters, setFilters } = useContext(AppState);
+
+  const handleChange = (event) => {
+    setFilters({
+      ...filters,
+      season: event.target.value
+    });
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
+  console.log(`Season Filter: ${filters.season}`);
 
   return (
     <Grid item xs={4} className={classes.option}>
         <FormControl className={classes.formControl}>
           <Select
             height='25%'
-            value={state.filter1}
-            onChange={handleChange}
-            inputProps={{
-              name: 'filter1'
-            }}>
+            value={ filters.season }
+            onChange={ handleChange }>
               {
                 data.seasons.map((season) => (
                     <option value={season.season} className={classes.option}>{season.season}</option>
@@ -182,6 +165,63 @@ function SeasonsFilter(handleChange, state) {
               }
           </Select>
         </FormControl>
+    </Grid>
+  );
+}
+
+function CategoryFilter() {
+  const classes = useStyles();
+  const { filters, setFilters } = useContext(AppState);
+
+  const handleChange = (event) => {
+    setFilters({
+      ...filters,
+      category: event.target.value
+    });
+  };
+
+  console.log(`Catagory Filter: ${filters.category}`);
+
+  return (
+    <Grid item xs={4} className={classes.option}>
+      <FormControl className={classes.formControl}>
+        <Select
+          height='25%'
+          value={ filters.category }
+          onChange={ handleChange }>
+            <option value='Races' className={classes.option}>Races</option>
+            <option value='Drivers' className={classes.option}>Drivers</option>
+            <option value='Teams' className={classes.option}>Teams</option>
+        </Select>
+      </FormControl>
+    </Grid>
+  );
+}
+
+function DetailFilter() {
+  const classes = useStyles();
+  const { filters, setFilters } = useContext(AppState);
+
+  const handleChange = (event) => {
+    setFilters({
+      ...filters,
+      detail: event.target.value
+    });
+  };
+
+  console.log(`Detail Filter: ${filters.detail}`);
+
+  return (
+    <Grid item xs={4} className={classes.option}>
+      <FormControl className={classes.formControl}>
+        <Select
+          value={ filters.detail }
+          onChange={ handleChange }>
+          <option value='Option1' className={classes.option}>Option1</option>
+          <option value='Option2' className={classes.option}>Option2</option>
+          <option value='Option3' className={classes.option}>Option3</option>
+        </Select>
+      </FormControl>
     </Grid>
   );
 }
