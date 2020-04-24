@@ -122,10 +122,14 @@ const RootQueryType = new GraphQLObjectType({
   fields: {
     races: {
       type: new GraphQLList(RaceType),
+      args: {
+        season: { type: GraphQLString }
+      },
       resolve(parent, args) {
+        const { season } = args;
         return axios
           // .get('http://localhost:3000/MRData') // the json-server mock data
-          .get('http://ergast.com/api/f1/2019/results.json?limit=420') // Ergast Data
+          .get(`http://ergast.com/api/f1/${season}/results.json?limit=420`) // Ergast Data
           .then(res => {
             console.log(res.data.MRData.RaceTable.Races);
             return res.data.MRData.RaceTable.Races;

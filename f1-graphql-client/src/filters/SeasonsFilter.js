@@ -32,8 +32,8 @@ export default function SeasonsFilter() {
               value={ filters.season }
               onChange={ handleChange }>
                 {
-                  data.seasons.reverse().map((season) => (
-                      <option value={season.season} className={classes.option}>{season.season}</option>
+                  data.seasons.map((season, season_i) => (
+                      <option key={season_i} value={season.season} className={classes.option}>{season.season}</option>
                   ))
                 }
             </Select>

@@ -14,15 +14,17 @@ import useStyles from './styles';
 import { RaceCards } from './cards';
  
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
+  // uri: 'http://localhost:4000', // local dev
+  uri: 'https://kc4uqd938e.execute-api.us-east-1.amazonaws.com/dev/graphql', // apollo graphql lambda
+  connectToDevTools: true
 });
 
 function AppStateProvider(props) {
   const [filters, setFilters] = useState(
     {
-      season: '',
-      category: '',
-      detail: ''
+      season: '2019',
+      category: 'Races',
+      detail: 'All'
     }
   );
 
@@ -40,21 +42,21 @@ function App() {
     <AppStateProvider>
       <Container className={classes.root}>
         <ApolloProvider client={client}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Formula 1 GraphQL Picker
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Grid container spacing={3} className={classes.seasonFilter}>
-          <SeasonsFilter/>
-          <CategoriesFilter/>
-          <DetailsFilter/>
-        </Grid>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                Formula 1 GraphQL Picker
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Grid container spacing={3} className={classes.seasonFilter}>
+            <SeasonsFilter/>
+            <CategoriesFilter/>
+            <DetailsFilter/>
+          </Grid>
           <RaceCards />
         </ApolloProvider>
       </Container>
