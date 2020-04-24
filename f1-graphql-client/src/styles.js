@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
       fontSize: theme.typography.pxToRem(40),
       fontWeight: theme.typography.fontWeightBold,
       flexBasis: '80',
-      flexShrink: 0
+      flexShrink: 0,
+      padding: '10px'
     },
     option: {
       color: theme.palette.text.secondary,
