@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
       padding: '10px'
     },
-    option: {
-      color: theme.palette.text.secondary,
-    },
     formControl: {
       margin: theme.spacing(1),
       width: '90%',

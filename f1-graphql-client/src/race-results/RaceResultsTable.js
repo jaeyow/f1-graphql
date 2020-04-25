@@ -20,12 +20,12 @@ export default function RaceResultsTable({races}) {
             <Table className={classes.table} aria-label="simple table">
             <TableHead>
                 <TableRow>
-                <TableCell>Grand Prix</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Winner</TableCell>
-                <TableCell align="right">Car</TableCell>
-                <TableCell align="right">Laps</TableCell>
-                <TableCell align="right">Time</TableCell>
+                    <TableCell>Grand Prix</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Winner</TableCell>
+                    <TableCell align="right">Car</TableCell>
+                    <TableCell align="right">Laps</TableCell>
+                    <TableCell align="right">Time</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>

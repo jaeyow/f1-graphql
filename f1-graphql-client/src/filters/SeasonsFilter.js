@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 import { SEASONS_LIST } from '../gql';
 import AppState from '../AppState';
 import useStyles from '../styles';
@@ -25,7 +26,7 @@ export default function SeasonsFilter() {
     console.log(`Season Filter: ${filters.season}`);
   
     return (
-      <Grid item xs={4} className={classes.option}>
+      <Grid item xs={4}>
           <FormControl className={classes.formControl}>
             <Select
               height='25%'
@@ -33,7 +34,7 @@ export default function SeasonsFilter() {
               onChange={ handleChange }>
                 {
                   data.seasons.map((season, season_i) => (
-                      <option key={season_i} value={season.season} className={classes.option}>{season.season}</option>
+                    <MenuItem key={season_i} value={season.season}>{season.season}</MenuItem>
                   ))
                 }
             </Select>

@@ -4,6 +4,7 @@ import { MAIN_RESULTS_V2 } from '../gql';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 import AppState from '../AppState';
 import useStyles from '../styles';
 
@@ -33,10 +34,10 @@ export default function DetailsFilter() {
               height='25%'
               value={ filters.detail }
               onChange={ handleChange }>
-                <option key="All" value="All" className={classes.option}>All</option>
+                <MenuItem key="All" value="All" className={classes.option}>All</MenuItem>
                 {
                   data.raceResultsV2.map(({Circuit}, result_i) => (
-                      <option key={result_i} value={Circuit.Location.country} className={classes.option}>{Circuit.Location.country}</option>
+                      <MenuItem key={result_i} value={Circuit.Location.country} className={classes.option}>{Circuit.Location.country}</MenuItem>
                   ))
                 }
             </Select>
