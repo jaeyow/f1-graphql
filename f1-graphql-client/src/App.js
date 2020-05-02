@@ -28,8 +28,46 @@ function AppStateProvider(props) {
     }
   );
 
+  const [resultDetail, setResultDetail] = useState(
+    {
+      raceResults: {
+        state: false,
+        title: 'Race Results'
+      },
+      fastestLaps: {
+        state: false,
+        title: 'Fastest Laps'
+      },
+      startingGrid: {
+        state: false,
+        title: 'Starting Grid'
+      },
+      qualifying: {
+        state: false,
+        title: 'Qualifying'
+      },
+      pitStops: {
+        state: false,
+        title: 'Pit Stops'
+      },
+      practice1: {
+        state: false,
+        title: 'Practice 1'
+      },
+      practice2: {
+        state: false,
+        title: 'Practice 2'
+      },
+      practice3: {
+        state: false,
+        title: 'Practice 3'
+      },
+      activeButton: 'Season Race Results'
+    }
+  );
+
   return (
-    <AppState.Provider value={{ filters, setFilters }}>
+    <AppState.Provider value={{ filters, setFilters, resultDetail, setResultDetail }}>
       { props.children }
     </AppState.Provider>
   );

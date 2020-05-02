@@ -121,7 +121,7 @@ query MainResults($season: String!) {
 
 export const MAIN_RESULTS_V2 = gql`
 query MainResults($season: String!) {
-  raceResultsV2(season: $season) {
+  raceResultsV2(season: $season, resultsLimit: 30) {
     raceName 
     round
     date
@@ -134,6 +134,8 @@ query MainResults($season: String!) {
     }
     Results {
       position
+      number
+      points
       Driver {
         givenName
         familyName

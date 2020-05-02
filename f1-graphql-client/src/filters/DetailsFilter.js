@@ -10,7 +10,7 @@ import useStyles from '../styles';
 
 export default function DetailsFilter() {
     const classes = useStyles();
-    const { filters, setFilters } = useContext(AppState);
+    const { filters, setFilters, resultDetail, setResultDetail } = useContext(AppState);
     const { loading, error, data } = useQuery(MAIN_RESULTS_V2, {
       variables: { season: filters.season }
     });
@@ -23,6 +23,17 @@ export default function DetailsFilter() {
         ...filters,
         detail: event.target.value
       });
+
+      if (event.target.value !== 'All') {
+        setResultDetail({
+          ...resultDetail,
+          raceResults: {
+              state: true,
+              title: 'Race Results'
+          },
+          activeButton: 'Race Results'
+        });
+      }
     };
   
     console.log(`Detail Filter: ${filters.detail}`);
@@ -37,7 +48,7 @@ export default function DetailsFilter() {
                 <MenuItem key="All" value="All" className={classes.option}>All</MenuItem>
                 {
                   data.raceResultsV2.map(({Circuit}, result_i) => (
-                      <MenuItem key={result_i} value={Circuit.Location.country} className={classes.option}>{Circuit.Location.country}</MenuItem>
+                      <MenuItem key={result_i} value={result_i} className={classes.option}>{Circuit.Location.country}</MenuItem>
                   ))
                 }
             </Select>

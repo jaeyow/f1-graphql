@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { MAIN_RESULTS_V2 } from '../gql';
 import useStyles from '../styles';
 import AppState from '../AppState';
-import RaceResultsTable from '../race-results/RaceResultsTable';
+import ResultsContainer from '../race-results/ResultsContainer';
 
 export default function RaceCards() {
     const classes = useStyles();
@@ -18,7 +18,7 @@ export default function RaceCards() {
   
     return (
     <Container className={classes.root}>
-      <RaceResultsTable races={ data.raceResultsV2 } />
+        <ResultsContainer races={ data.raceResultsV2 } />
     </Container>
     );
   }

@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     },
     seasonFilter: {
       height: '50px',
+    },
+    resultsButtonWidth: {
+      width: '100%',
+      minWidth: '90px'
     }
   }));
 

@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import useStyles from '../styles';
 
-export default function RaceResultsTable({races}) {
+export default function FastestLapsTable({races}) {
   const classes = useStyles();
 
   return (
@@ -26,14 +26,14 @@ export default function RaceResultsTable({races}) {
             </TableHead>
             <TableBody>
                 {
-                    races.map(({ raceName, date, Results }, row_i) => (
+                    races.map(({raceName, date, Results}, row_i) => (
                     <TableRow key={row_i}>
                         <TableCell align="left" component="th" scope="row">{raceName}</TableCell>
                         <TableCell align="left">{date}</TableCell>
                         <TableCell align="left">{`${Results[0].Driver.givenName} ${Results[0].Driver.familyName}`}</TableCell>
                         <TableCell align="left">{`${Results[0].Constructor.name}`}</TableCell>
                         <TableCell align="left">{`${Results[0].laps}`}</TableCell>
-                        <TableCell align="left">Time/Retired</TableCell>
+                        <TableCell align="left">{`${Results[0].Time.time}`}</TableCell>
                     </TableRow>
                     ))
                 }
