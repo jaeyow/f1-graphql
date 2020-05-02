@@ -33,6 +33,11 @@ export default function DetailsFilter() {
           },
           activeButton: 'Race Results'
         });
+      } else {
+        setResultDetail({
+          ...resultDetail,
+          activeButton: 'Season Race Results'
+        });
       }
     };
   

@@ -36,7 +36,8 @@ export default function CircuitResultsTable({races}) {
                         <TableCell align="left">{`${result.Driver.givenName} ${result.Driver.familyName}`}</TableCell>
                         <TableCell align="left">{`${result.Constructor.name}`}</TableCell>
                         <TableCell align="left">{`${result.laps}`}</TableCell>
-                        <TableCell align="left">{result.Time !== null ? `${result.Time.time}` : 'DNF'}</TableCell>
+                        <TableCell align="left">{result.Time !== null ? `${result.Time.time}` : 
+                          result.status.includes('+') ? result.status : `DNF - ${result.status}`}</TableCell>
                         <TableCell align="left">{`${result.points}`}</TableCell>
                     </TableRow>
                     ))

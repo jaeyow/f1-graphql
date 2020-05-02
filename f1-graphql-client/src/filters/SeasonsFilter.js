@@ -11,12 +11,18 @@ import useStyles from '../styles';
 export default function SeasonsFilter() {
     const classes = useStyles();
     const { loading, error, data } = useQuery(SEASONS_LIST);
-    const { filters, setFilters } = useContext(AppState);
+    const { filters, setFilters, resultDetail, setResultDetail } = useContext(AppState);
   
     const handleChange = (event) => {
       setFilters({
         ...filters,
-        season: event.target.value
+        season: event.target.value,
+        detail: 'All'
+      });
+
+      setResultDetail({
+        ...resultDetail,
+        activeButton: 'Season Race Results'
       });
     };
   

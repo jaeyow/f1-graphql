@@ -144,6 +144,7 @@ query MainResults($season: String!) {
         name
       }
       laps
+      status
       Time {
         time
       }

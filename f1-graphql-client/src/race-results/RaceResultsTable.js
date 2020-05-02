@@ -33,7 +33,7 @@ export default function RaceResultsTable({races}) {
                         <TableCell align="left">{`${Results[0].Driver.givenName} ${Results[0].Driver.familyName}`}</TableCell>
                         <TableCell align="left">{`${Results[0].Constructor.name}`}</TableCell>
                         <TableCell align="left">{`${Results[0].laps}`}</TableCell>
-                        <TableCell align="left">Time/Retired</TableCell>
+                        <TableCell align="left">{`${Results[0].Time.time}`}</TableCell>
                     </TableRow>
                     ))
                 }
