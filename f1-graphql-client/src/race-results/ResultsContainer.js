@@ -9,7 +9,8 @@ import CircuitResultsTable from './CircuitResultsTable';
 export default function ResultsContainer({races}) {
   const classes = useStyles();
   const { filters, resultDetail } = useContext(AppState);
-  const tableTitle = resultDetail.activeButton ?? 'Season Race Results';
+  const tableTitle = resultDetail.activeButton === 'Season Race Results' ?
+  `Formula 1 - ${filters.season} Season Race Results` : `Formula 1 - ${filters.season} ${races[filters.detail].raceName} - Race Results`;
 
   const renderTable = (param) => {
     switch(param) {
@@ -22,7 +23,7 @@ export default function ResultsContainer({races}) {
 
   return (
     <Fragment>
-        <h1 className={classes.heading}>{`${filters.season} ${tableTitle}`}</h1>
+        <h1 className={classes.heading}>{`${tableTitle}`}</h1>
         <Grid container spacing={3}>
             { filters.detail !== 'All' && 
                 <Grid item xs={3}>
