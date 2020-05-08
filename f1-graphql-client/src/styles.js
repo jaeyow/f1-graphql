@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
       padding: '10px'
     },
+    spinner: {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '90%'
+    },
     formControl: {
       margin: theme.spacing(1),
       width: '90%',

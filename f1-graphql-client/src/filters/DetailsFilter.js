@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import AppState from '../AppState';
 import useStyles from '../styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function DetailsFilter() {
     const classes = useStyles();
@@ -15,7 +16,12 @@ export default function DetailsFilter() {
       variables: { season: filters.season }
     });
   
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (
+      <Grid item xs={4} className={classes.root}>
+        <CircularProgress size={20} className={classes.spinner} ></CircularProgress>
+      </Grid>
+    );
+
     if (error) return <p>Error :(</p>;
   
     const handleChange = (event) => {
@@ -52,7 +58,7 @@ export default function DetailsFilter() {
               onChange={ handleChange }>
                 <MenuItem key="All" value="All" className={classes.option}>All</MenuItem>
                 {
-                  data.raceResultsV2.map(({Circuit}, result_i) => (
+                  data.raceResults.map(({Circuit}, result_i) => (
                       <MenuItem key={result_i} value={result_i} className={classes.option}>{Circuit.Location.country}</MenuItem>
                   ))
                 }

@@ -53,7 +53,7 @@ export default function SideNav() {
                 title: 'Practice 3'
             },
             [resultName]: {
-                state: !result.state,
+                state: result.state ? result.state : !result.state,
                 title: result.title
             },
             activeButton: result.title

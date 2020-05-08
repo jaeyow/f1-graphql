@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { SEASONS_LIST } from '../gql';
 import AppState from '../AppState';
 import useStyles from '../styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function SeasonsFilter() {
     const classes = useStyles();
@@ -26,7 +27,12 @@ export default function SeasonsFilter() {
       });
     };
   
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (
+      <Grid item xs={4} className={classes.root}>
+        <CircularProgress size={20} className={classes.spinner}></CircularProgress>
+      </Grid>
+    );
+
     if (error) return <p>Error :(</p>;
   
     console.log(`Season Filter: ${filters.season}`);

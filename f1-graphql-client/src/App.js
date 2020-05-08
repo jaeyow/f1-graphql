@@ -12,11 +12,20 @@ import { SeasonsFilter, CategoriesFilter, DetailsFilter } from './filters';
 import AppState from './AppState';
 import useStyles from './styles';
 import { RaceCards } from './cards';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
  
 const client = new ApolloClient({
   // uri: 'http://localhost:4000', // local dev
   uri: 'https://kc4uqd938e.execute-api.us-east-1.amazonaws.com/dev/graphql', // apollo graphql lambda
   connectToDevTools: true
+});
+
+const theme = createMuiTheme({
+  palette: {
+      primary: {
+          main: '#e10600'
+      }
+    },
 });
 
 function AppStateProvider(props) {
@@ -78,26 +87,28 @@ function App() {
 
   return (
     <AppStateProvider>
-      <Container className={classes.root}>
-        <ApolloProvider client={client}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                Formula 1 GraphQL Picker
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Grid container spacing={3} className={classes.seasonFilter}>
-            <SeasonsFilter/>
-            <CategoriesFilter/>
-            <DetailsFilter/>
-          </Grid>
-          <RaceCards />
-        </ApolloProvider>
-      </Container>
+      <MuiThemeProvider theme={theme}>
+        <Container className={classes.root}>
+          <ApolloProvider client={client}>
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                  Formula 1 GraphQL Client
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Grid container spacing={3} className={classes.seasonFilter}>
+              <SeasonsFilter/>
+              <CategoriesFilter/>
+              <DetailsFilter/>
+            </Grid>
+            <RaceCards />
+          </ApolloProvider>
+        </Container>
+      </MuiThemeProvider>
     </AppStateProvider>
   );
 }

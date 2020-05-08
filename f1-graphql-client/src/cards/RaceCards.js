@@ -13,12 +13,13 @@ export default function RaceCards() {
       variables: { season: filters.season }
     });
   
-    if (loading) return <p>Loading...</p>;
+    if (loading) return null;
+
     if (error) return <p>Error :(</p>;
   
     return (
     <Container className={classes.root}>
-        <ResultsContainer races={ data.raceResultsV2 } />
+        <ResultsContainer races={ data.raceResults } />
     </Container>
     );
   }
