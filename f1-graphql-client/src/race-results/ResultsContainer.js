@@ -5,17 +5,21 @@ import SideNav from './SideNav';
 import Grid from '@material-ui/core/Grid';
 import RaceResultsTable from './RaceResultsTable';
 import CircuitResultsTable from './CircuitResultsTable';
+import FastestLapsTable from './FastestLapsTable';
 
 export default function ResultsContainer({races}) {
   const classes = useStyles();
   const { filters, resultDetail } = useContext(AppState);
   const tableTitle = resultDetail.activeButton === 'Season Race Results' ?
-  `Formula 1 - ${filters.season} Season Race Results` : `Formula 1 - ${filters.season} ${races[filters.detail].raceName} - Race Results`;
+  `Formula 1 - ${filters.season} Season Race Results` :
+  `Formula 1 - ${filters.season} ${races[filters.detail].raceName} - ${resultDetail.activeButton }`;
 
   const renderTable = (param) => {
     switch(param) {
       case 'Race Results':
         return <CircuitResultsTable races={races}/>;
+      case 'Fastest Laps':
+        return <FastestLapsTable races={races}/>;
       default:
         return <RaceResultsTable races={races}/>;
     }
