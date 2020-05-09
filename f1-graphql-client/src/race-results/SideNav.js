@@ -22,39 +22,48 @@ export default function SideNav() {
         setResultDetail({
             raceResults: {
                 state: false,
-                title: 'Race Results'
+                title: 'Race Results',
+                visible: !result.visible
             },
             fastestLaps: {
                 state: false,
-                title: 'Fastest Laps'
+                title: 'Fastest Laps',
+                visible: !result.visible
             },
             startingGrid: {
                 state: false,
-                title: 'Starting Grid'
+                title: 'Starting Grid',
+                visible: !result.visible
             },
             qualifying: {
                 state: false,
-                title: 'Qualifying'
+                title: 'Qualifying',
+                visible: !result.visible
             },
             pitStops: {
                 state: false,
-                title: 'Pit Stops'
+                title: 'Pit Stops',
+                visible: !result.visible
             },
             practice1: {
                 state: false,
-                title: 'Practice 1'
+                title: 'Practice 1',
+                visible: !result.visible
             },
             practice2: {
                 state: false,
-                title: 'Practice 2'
+                title: 'Practice 2',
+                visible: !result.visible
             },
             practice3: {
                 state: false,
-                title: 'Practice 3'
+                title: 'Practice 3',
+                visible: !result.visible
             },
             [resultName]: {
                 state: result.state ? result.state : !result.state,
-                title: result.title
+                title: result.title,
+                visible: result.visible
             },
             activeButton: result.title
         });
@@ -70,12 +79,14 @@ export default function SideNav() {
                 onChange={() => { toggleResultButton(resultDetail.raceResults, 'raceResults') }}>{resultDetail.raceResults.title}
             </ToggleButton>
         </ListItem>
+        { resultDetail.fastestLaps.visible &&
         <ListItem>
             <ToggleButton className={classes.resultsButtonWidth}
                 selected={resultDetail.fastestLaps.state}
                 onChange={() => { toggleResultButton(resultDetail.fastestLaps, 'fastestLaps') }}>{resultDetail.fastestLaps.title}
             </ToggleButton>
         </ListItem>
+        }
         <ListItem>
             <ToggleButton className={classes.resultsButtonWidth}
                 selected={resultDetail.startingGrid.state}

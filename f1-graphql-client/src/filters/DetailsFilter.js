@@ -35,7 +35,13 @@ export default function DetailsFilter() {
           ...resultDetail,
           raceResults: {
               state: true,
-              title: 'Race Results'
+              title: 'Race Results',
+              visible: true
+          },
+          fastestLaps: {
+            state: false,
+            title: 'Fastest Laps',
+            visible: data.raceResults[0].Results[0].FastestLap ? true : false
           },
           activeButton: 'Race Results'
         });
