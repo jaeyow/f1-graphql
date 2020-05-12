@@ -1,16 +1,13 @@
 import React, { useContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { MAIN_RESULTS_V2 } from '../gql';
 import useStyles from '../styles';
 import AppState from '../AppState';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
 export default function SideNav() {
     const classes = useStyles();
-    const { filters, resultDetail, setResultDetail } = useContext(AppState);
+    const { resultDetail, setResultDetail } = useContext(AppState);
     // const { loading, error, data } = useQuery(MAIN_RESULTS_V2, {
     //   variables: { season: filters.season }
     // });
