@@ -8,7 +8,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 export default function SideNav() {
     const classes = useStyles();
     const { resultDetail, setResultDetail } = useContext(AppState);
-    // const { loading, error, data } = useQuery(MAIN_RESULTS_V2, { // test
+    // const { loading, error, data } = useQuery(MAIN_RESULTS_V2, { 
     //   variables: { season: filters.season }
     // });
   
