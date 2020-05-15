@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { MAIN_RESULTS_V2 } from '../gql';
+import { MAIN_RESULTS } from '../gql';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 export default function DetailsFilter() {
     const classes = useStyles();
     const { filters, setFilters, resultDetail, setResultDetail } = useContext(AppState);
-    const { loading, error, data } = useQuery(MAIN_RESULTS_V2, {
+    const { loading, error, data } = useQuery(MAIN_RESULTS, {
       variables: { season: filters.season }
     });
   

@@ -11,30 +11,6 @@ export const SEASONS_LIST = gql`
 
 export const MAIN_RESULTS = gql`
 query MainResults($season: String!) {
-  raceResults(season: $season) {
-    raceName 
-    round
-    date
-    results {
-      position
-      Driver {
-        givenName
-        familyName
-      }
-      Constructor {
-        name
-      }
-      laps
-      Time {
-        time
-      }
-    }
-  }
-}
-`;
-
-export const MAIN_RESULTS_V2 = gql`
-query MainResults($season: String!) {
   raceResults(season: $season, resultsLimit: 30) {
     raceName 
     round
@@ -74,6 +50,33 @@ query MainResults($season: String!) {
       Time {
         time
       }
+    }
+  }
+}
+`;
+
+export const QUAL_RESULTS = gql`
+query QualResults($season: String!) {
+  qualifying(season: $season) {
+    season
+    round
+    raceName
+    Circuit {
+      circuitName
+    }
+    QualifyingResults {
+      position
+      number
+      Driver {
+        givenName
+        familyName
+      }
+      Constructor {
+        name
+      }
+      Q1
+      Q2
+      Q3
     }
   }
 }

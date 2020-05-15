@@ -49,34 +49,9 @@ function AppStateProvider(props) {
         title: 'Fastest Laps',
         visible: true
       },
-      startingGrid: {
-        state: false,
-        title: 'Starting Grid',
-        visible: true
-      },
       qualifying: {
         state: false,
         title: 'Qualifying',
-        visible: true
-      },
-      pitStops: {
-        state: false,
-        title: 'Pit Stops',
-        visible: true
-      },
-      practice1: {
-        state: false,
-        title: 'Practice 1',
-        visible: true
-      },
-      practice2: {
-        state: false,
-        title: 'Practice 2',
-        visible: true
-      },
-      practice3: {
-        state: false,
-        title: 'Practice 3',
         visible: true
       },
       activeButton: 'Season Race Results'

@@ -8,18 +8,24 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import useStyles from '../styles';
 import AppState from '../AppState';
+import { QUAL_RESULTS } from '../gql';
+import { useQuery } from '@apollo/react-hooks';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function FastestLapsTable({races}) {
+export default function QualifyingResultsTable() {
   const classes = useStyles();
   const { filters } = useContext(AppState);
-  const fastestLaps = races[filters.detail].Results.sort((a, b) => {
-      if (a.FastestLap) {
-        return a.FastestLap.rank - b.FastestLap.rank;
-      }
-      return 0;
+  const { loading, error, data } = useQuery(QUAL_RESULTS, {
+    variables: { season: filters.season }
   });
-
-  
+  if (loading) return (
+    <Grid item xs={4} className={classes.root}>
+      <CircularProgress size={20} className={classes.spinner} ></CircularProgress>
+    </Grid>
+  );
+  if (error) return <p>Error :(</p>;
+  const quals = data.qualifying[filters.detail] ? data.qualifying[filters.detail].QualifyingResults : null;  
 
   return (
     <TableContainer component={Paper}>
@@ -30,24 +36,24 @@ export default function FastestLapsTable({races}) {
                     <TableCell align="left">No</TableCell>
                     <TableCell align="left">Driver</TableCell>
                     <TableCell align="left">Car</TableCell>
-                    <TableCell align="left">Lap</TableCell>
-                    <TableCell align="left">Time</TableCell>
-                    <TableCell align="left">Ave speed</TableCell>
+                    <TableCell align="left">Q1</TableCell>
+                    <TableCell align="left">Q2</TableCell>
+                    <TableCell align="left">Q3</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {
-                    fastestLaps[0].FastestLap &&
-                    fastestLaps.map((result, row_i) => {                        
+                    quals &&
+                    quals.map((result, row_i) => {                        
                         return (
                             <TableRow key={row_i}>
-                                <TableCell align="left" component="th" scope="row">{result.FastestLap && result.FastestLap.rank}</TableCell>
+                                <TableCell align="left" component="th" scope="row">{result.position}</TableCell>
                                 <TableCell align="left">{result.number}</TableCell>
                                 <TableCell align="left">{`${result.Driver.givenName} ${result.Driver.familyName}`}</TableCell>
                                 <TableCell align="left">{`${result.Constructor.name}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.lap}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.Time.time}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.AverageSpeed.speed} ${result.FastestLap.AverageSpeed.units}`}</TableCell>
+                                <TableCell align="left">{result.Q1 && `${result.Q1}`}</TableCell>
+                                <TableCell align="left">{result.Q2 && `${result.Q2}`}</TableCell>
+                                <TableCell align="left">{result.Q3 && `${result.Q3}`}</TableCell>
                             </TableRow>
                         );
                     })

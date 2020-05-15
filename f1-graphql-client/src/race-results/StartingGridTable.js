@@ -41,13 +41,13 @@ export default function FastestLapsTable({races}) {
                     fastestLaps.map((result, row_i) => {                        
                         return (
                             <TableRow key={row_i}>
-                                <TableCell align="left" component="th" scope="row">{result.FastestLap && result.FastestLap.rank}</TableCell>
+                                <TableCell align="left" component="th" scope="row">{result.FastestLap.rank}</TableCell>
                                 <TableCell align="left">{result.number}</TableCell>
                                 <TableCell align="left">{`${result.Driver.givenName} ${result.Driver.familyName}`}</TableCell>
                                 <TableCell align="left">{`${result.Constructor.name}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.lap}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.Time.time}`}</TableCell>
-                                <TableCell align="left">{result.FastestLap && `${result.FastestLap.AverageSpeed.speed} ${result.FastestLap.AverageSpeed.units}`}</TableCell>
+                                <TableCell align="left">{`${result.FastestLap.lap}`}</TableCell>
+                                <TableCell align="left">{`${result.FastestLap.Time.time}`}</TableCell>
+                                <TableCell align="left">{`${result.FastestLap.AverageSpeed.speed} ${result.FastestLap.AverageSpeed.units}`}</TableCell>
                             </TableRow>
                         );
                     })
